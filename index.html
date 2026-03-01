@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crédito Hipotecario</title>
+
+    <link href="./bootstrap-5.2.3-dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --prex-primary: #7026DC;
+            --prex-secondary: #BC90FF;
+            --prex-dark: #110027;
+            --prex-bg: #f7f5fc;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--prex-bg);
+        }
+
+        /* ===== HERO HEADER ===== */
+        .hero {
+            background: linear-gradient(135deg, #7026DC, #110027);
+            color: white;
+            padding: 60px 0 90px;
+        }
+
+        .hero h1 {
+            font-weight: 700;
+            letter-spacing: .5px;
+        }
+
+        /* ===== CARD LOOK FINTECH ===== */
+        .main-card {
+            margin-top: -60px;
+            border-radius: 20px;
+            border: none;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, .08);
+        }
+
+        .card {
+            border-radius: 20px;
+            border: none;
+        }
+
+        /* ===== INPUTS ===== */
+        .form-control {
+            border-radius: 12px;
+            height: 48px;
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn-primary {
+            background-color: var(--prex-primary);
+            border-color: var(--prex-primary);
+            height: 48px;
+            font-weight: 500;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--prex-dark);
+            border-color: var(--prex-dark);
+        }
+
+        .btn-secondary {
+            background-color: var(--prex-secondary);
+            border-color: var(--prex-secondary);
+            color: #000;
+            height: 48px;
+            font-weight: 500;
+        }
+
+        /* ===== RESULT BOXES (estilo dashboard) ===== */
+        .result-box {
+            background: white;
+            border-radius: 14px;
+            padding: 14px 18px;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, .05);
+        }
+
+        .result-value {
+            color: var(--prex-primary);
+            font-weight: 600;
+            font-size: 1.25rem;
+        }
+
+        /* pequeña transición pro */
+        .card,
+        .btn,
+        .form-control {
+            transition: .2s ease;
+        }
+    </style>
+</head>
+
+
+<body>
+
+    <!-- HERO -->
+    <section class="hero text-center text-lg-start">
+        <div class="container">
+            <h1 class="display-6 mb-2">Prex</h1>
+            <p class="mb-0 opacity-75">Simulador de Crédito Hipotecario</p>
+        </div>
+    </section>
+
+
+
+    <div class="container mb-5">
+
+        <div class="row g-4 justify-content-center">
+
+            <!-- FORM CARD -->
+            <div class="col-lg-8">
+
+                <div class="card main-card p-4 p-lg-5">
+
+                    <form id="fMortgage" onsubmit="return calculateMortgage(event)">
+
+                        <div class="row g-4">
+
+                            <div class="col-md-6">
+                                <label class="form-label">Cuota inicial</label>
+                                <input class="form-control" id="fcuota" type="text">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">Valor total del inmueble</label>
+                                <input class="form-control" id="fvalortotal" type="text">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">Tasa de interés</label>
+                                <input class="form-control" id="finteres" type="text">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label">Plazo en años</label>
+                                <input class="form-control" id="fplazo" type="text">
+                            </div>
+                        </div>
+
+
+                        <!-- BOTONES -->
+                        <div class="row mt-4 g-3">
+                            <div class="col-md">
+                                <button class="btn btn-primary w-100" type="submit">
+                                    Calcular
+                                </button>
+                            </div>
+                            <div class="col-md">
+                                <button class="btn btn-secondary w-100" type="button" onclick="resetearForm()">
+                                    Limpiar
+                                </button>
+                            </div>
+                        </div>
+
+                    </form>
+
+
+                    <!-- RESULTADOS -->
+                    <div class="row mt-5 g-3">
+
+                        <div class="col-md-6">
+                            <div class="result-box d-flex justify-content-between align-items-center">
+                                <span class="text-muted small">Monto total préstamo</span>
+                                <output id="omontoprestamo" class="result-value"></output>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="result-box d-flex justify-content-between align-items-center">
+                                <span class="text-muted small">Cuota mensual</span>
+                                <output id="ocuota" class="result-value"></output>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+
+
+            <!-- INFO -->
+            <div class="col-lg-4">
+                <div class="card p-4 h-100 shadow-sm">
+
+                    <h5 class="fw-semibold mb-3">Información</h5>
+
+                    <p class="text-muted small">Simulá tu préstamo en segundos.</p>
+                    <p class="text-muted small">Probá distintos plazos y tasas.</p>
+                    <p class="text-muted small">Obtené el valor de la cuota mensual.</p>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+    <script src="./bootstrap-5.2.3-dist/js/bootstrap.min.js"></script>
+    <script src="./js/mortgage.js"></script>
+
+</body>
+</html>
